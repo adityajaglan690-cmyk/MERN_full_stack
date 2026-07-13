@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Byte Solution | AI-Powered Premium Learning Platform</title>
+    <meta name="description" content="Master AI, Full Stack, Cloud, and Cyber Security with Digital Byte Solution. Futuristic, industry-ready educational platform.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #050816;
+            --bg-light: #f4f6fa;
+            --primary: #00C6FF;
+            --secondary: #8A2BE2;
+            --cyan-glow: #00F5FF;
+            --card-glass-dark: rgba(255, 255, 255, 0.03);
+            --card-glass-light: rgba(0, 0, 0, 0.02);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-dark: #ffffff;
+            --text-light: #0f172a;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-dark: var(--bg-light);
+            --text-dark: var(--text-light);
+            --card-glass-dark: var(--card-glass-light);
+            --border-glass: rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        h1, h2, h3, .nav-link, .brand-font {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary), var(--secondary)); border-radius: 4px; }
+
+        /* Global Cursor Glow & WebGL Canvas Container */
+        #canvas-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(0, 198, 255, 0.15) 0%, rgba(138, 43, 226, 0.05) 50%, transparent 100%);
+            border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%);
+            z-index: -1; transition: width 0.2s, height 0.2s;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-card {
+            background: var(--card-glass-dark);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            border-color: var(--cyan-glow);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Navigation */
+        .navbar {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass);
+            z-index: 1050;
+        }
+
+        .nav-link {
+            color: var(--text-dark) !important;
+            opacity: 0.8; transition: var(--transition);
+        }
+
+        .nav-link:hover { opacity: 1; color: var(--primary) !important; }
+
+        /* Hero Styling */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--cyan-glow), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-premium {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #fff; border: none; padding: 14px 32px; border-radius: 50px;
+            font-weight: 600; letter-spacing: 0.5px; transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+        }
+
+        .btn-premium:hover {
+            transform: scale(1.05); box-shadow: 0 6px 25px rgba(138, 43, 226, 0.6); color: #fff;
+        }
+
+        .btn-outline-premium {
+            border: 2px solid var(--primary); color: var(--text-dark);
+            padding: 12px 30px; border-radius: 50px; font-weight: 600; transition: var(--transition);
+        }
+
+        .btn-outline-premium:hover {
+            background: var(--primary); color: #000;
+        }
+
+        /* Interactive Timeline */
+        .timeline-container { position: relative; padding-left: 30px; border-left: 2px dashed var(--border-glass); }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -41px; top: 5px;
+            width: 20px; height: 20px; border-radius: 50%; background: var(--cyan-glow);
+            box-shadow: 0 0 10px var(--cyan-glow);
+        }
+
+        /* Floating Widgets */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px; z-index: 1000;
+            width: 60px; height: 60px; background-color: #25D366; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: white;
+            font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: var(--transition);
+        }
+        .whatsapp-float:hover { transform: scale(1.1); color: white; }
+
+        /* Loader */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark); z-index: 9999; display: flex;
+            align-items: center; justify-content: center; transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div id="loader">
+        <div class="text-center">
+            <h1 class="gradient-text display-3 mb-3 brand-font">DIGITAL BYTE</h1>
+            <div class="spinner-border text-info" role="status"></div>
+        </div>
+    </div>
+
+    <div id="canvas-container"></div>
+    <div class="cursor-glow" id="cursor-glow"></div>
+
+    <nav class="navbar navbar-expand-xl navbar-dark fixed-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand gradient-text brand-font fs-3" href="#">Digital Byte</a>
+            <button class="navbar-collapse-toggle navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mx-auto mb-2 mb-xl-0 gap-2">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ai-features">AI Programs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#internship">Internship</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#placement">Placement</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faqs">FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-link text-white p-2" id="theme-toggle" aria-label="Toggle Theme"><i class="fas fa-moon fs-5 text-warning"></i></button>
+                    <button class="btn btn-outline-premium btn-sm px-4" data-bs-toggle="modal" data-bs-target="#authModal">Login</button>
+                    <button class="btn btn-premium btn-sm px-4" data-bs-toggle="modal" data-bs-target="#authModal">Register</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100 py-5">
+                <div class="col-lg-7 text-center text-lg-start">
+                    <h1 class="display-3 fw-bold mb-4" data-aos="fade-up">
+                        <span class="gradient-text">Build Your Future</span> <br>with <span id="typed-text"></span>
+                    </h1>
+                    <p class="lead mb-5 opacity-75" data-aos="fade-up" data-aos-delay="200">Learn Industry Ready Skills from Experts and Launch Your Career. Access next-gen sandboxes and interactive environments.</p>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3" data-aos="fade-up" data-aos-delay="400">
+                        <a href="#courses" class="btn btn-premium btn-lg">Explore Courses <i class="fas fa-arrow-right ms-2"></i></a>
+                        <button class="btn btn-outline-premium btn-lg text-white" onclick="triggerSyllabusDownload('Global AI Track')">Download Brochure <i class="fas fa-download ms-2"></i></button>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="glass-card p-5 text-center position-relative overflow-hidden">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient opacity-10" style="background: linear-gradient(var(--primary), var(--secondary));"></div>
+                        <i class="fas fa-brain fa-10x gradient-text my-4 animate-pulse"></i>
+                        <h4 class="brand-font mt-3">Neural Core V3.1 Active</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-5 relative">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2 class="display-5 mb-4 font-space">Next-Gen Empowered <span class="gradient-text">Ecosystem</span></h2>
+                    <p class="opacity-75 mb-4">Digital Byte Solution merges cognitive architecture with bleeding-edge technology to offer real-world live project systems, expert training tracks, and continuous placement loops.</p>
+                    <div class="row g-4 mb-4">
+                        <div class="col-sm-6"><div class="p-3 glass-card"><i class="fas fa-microchip text-info mb-2"></i><h6>AI Powered Learning</h6></div></div>
+                        <div class="col-sm-6"><div class="p-3 glass-card"><i class="fas fa-id-badge text-warning mb-2"></i><h6>Expert Mentoring</h6></div></div>
+                        <div class="col-sm-6"><div class="p-3 glass-card"><i class="fas fa-laptop-code text-primary mb-2"></i><h6>Live Sandboxed Environments</h6></div></div>
+                        <div class="col-sm-6"><div class="p-3 glass-card"><i class="fas fa-handshake text-success mb-2"></i><h6>Guaranteed Placements</h6></div></div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="row g-4">
+                        <div class="col-6"><div class="glass-card text-center p-4"><h2 class="gradient-text counter-value" data-target="15000">0</h2><p class="mb-0">Students Trained</p></div></div>
+                        <div class="col-6"><div class="glass-card text-center p-4"><h2 class="gradient-text counter-value" data-target="45">0</h2><p class="mb-0">Advanced Programs</p></div></div>
+                        <div class="col-6"><div class="glass-card text-center p-4"><h2 class="gradient-text counter-value" data-target="120">0</h2><p class="mb-0">Hiring Partners</p></div></div>
+                        <div class="col-6"><div class="glass-card text-center p-4"><h2 class="gradient-text counter-value" data-target="98">0</h2><p class="mb-0">Placement Rate %</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="py-5 relative">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-4 font-space">Explore <span class="gradient-text">Premium Fields</span></h2>
+                <p class="opacity-75">Select from programmatic learning matrices validated by global industry metrics</p>
+                
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-4" id="course-filter-container">
+                    <button class="btn btn-sm btn-outline-premium active-filter" onclick="filterCourses('all', this)">All Specs</button>
+                    <button class="btn btn-sm btn-outline-premium" onclick="filterCourses('ai', this)">AI & Data Sci</button>
+                    <button class="btn btn-sm btn-outline-premium" onclick="filterCourses('dev', this)">Full Stack Dev</button>
+                    <button class="btn btn-sm btn-outline-premium" onclick="filterCourses('cloud', this)">Cloud & Cyber</button>
+                    <button class="btn btn-sm btn-outline-premium" onclick="filterCourses('design', this)">Design & Marketing</button>
+                </div>
+            </div>
+
+            <div class="row g-4" id="courses-grid-wrapper">
+                </div>
+        </div>
+    </section>
+
+    <section id="ai-features" class="py-5 bg-black-opacity">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 font-space"><i class="fas fa-bolt text-warning performance-pulse me-2"></i>Integrated <span class="gradient-text">Cognitive Tooling</span></h2>
+                <p class="opacity-75">On-demand systemic processing utilities to diagnose capability vectors</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-route fa-2x text-info me-3"></i>
+                            <h4 class="mb-0">Roadmap Generator</h4>
+                        </div>
+                        <p class="small opacity-75">Generates precise micro-learning paths linked dynamically against current tech vacancies.</p>
+                        <button class="btn btn-sm btn-outline-premium mt-3" onclick="alert('Initializing Advanced AI Mapping System...')">Launch Matrix</button>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-file-invoice fa-2x text-primary me-3"></i>
+                            <h4 class="mb-0">Resume Parser Engine</h4>
+                        </div>
+                        <p class="small opacity-75">Parses and cross-references your ATS formatting against strategic hiring models.</p>
+                        <button class="btn btn-sm btn-outline-premium mt-3" onclick="alert('Parsing system active. Upload portal initializing.')">Parse Asset</button>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-terminal fa-2x text-success me-3"></i>
+                            <h4 class="mb-0">Coding Sandbox</h4>
+                        </div>
+                        <p class="small opacity-75">In-browser validation runtime supporting low-latency diagnostics across major languages.</p>
+                        <button class="btn btn-sm btn-outline-premium mt-3" onclick="alert('Compiling cloud execution shell...')">Open Terminal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="internship" class="py-5">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <h2 class="display-5 font-space"><span class="gradient-text">Immersive Track</span> Engineering</h2>
+                    <p class="opacity-75 mt-3">Our pipelines simulate live project scenarios, complete with mentor architecture updates and performance metrics evaluation systems.</p>
+                    <div class="p-4 glass-card border-start border-info border-3 mt-4">
+                        <h5 class="mb-2"><i class="fas fa-certificate text-info me-2"></i>ISO-Standard Certification</h5>
+                        <p class="small mb-0 opacity-75">Earn verification elements instantly indexable inside distributed registry frameworks.</p>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="timeline-container">
+                        <div class="timeline-item">
+                            <h5>Phase 1: Architecture Onboarding & Diagnostics</h5>
+                            <p class="small opacity-75">Acquire fundamental paradigms, map framework topologies, and clear baseline entry gates.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Phase 2: Live Enterprise Sandboxing</h5>
+                            <p class="small opacity-75">Construct distributed application features integrated into live sandbox environments.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Phase 3: Codebase Hardening & Audits</h5>
+                            <p class="small opacity-75">Refactor systems for high-concurrency scaling, fix structural bugs, and perform optimization protocols.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="placement" class="py-5 bg-black-opacity">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 font-space">Enterprise <span class="gradient-text">Hiring Matrix</span></h2>
+                <p class="opacity-75">Our alumni work at top cloud providers, financial structures, and modern AI startups.</p>
+            </div>
+            
+            <div class="w-100 overflow-hidden relative position-relative py-3 class-ticker-wrapper">
+                <div class="d-flex gap-5 align-items-center justify-content-around flex-wrap text-white opacity-50 fs-3">
+                    <span class="mx-3"><i class="fab fa-aws me-2"></i>AWS</span>
+                    <span class="mx-3"><i class="fab fa-google me-2"></i>Google Cloud</span>
+                    <span class="mx-3"><i class="fab fa-microsoft me-2"></i>Microsoft</span>
+                    <span class="mx-3"><i class="fab fa-meta me-2"></i>Meta Ops</span>
+                    <span class="mx-3"><i class="fab fa-amazon me-2"></i>Amazon Systems</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 font-space">Alumni <span class="gradient-text">Deployments</span></h2>
+                <p class="opacity-75">Inspect real production applications built entirely by our student cohort.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="glass-card overflow-hidden">
+                        <div class="p-4">
+                            <span class="badge bg-info mb-2">Cognitive/AI</span>
+                            <h5>Autonomous Routing Matrix</h5>
+                            <p class="small opacity-75">An LLM-driven proxy layer engineered for routing low-latency vector database search execution patterns.</p>
+                            <a href="#" class="btn btn-sm btn-link text-info p-0 mt-2" onclick="alert('Opening Sandbox Inspection Modal...')">Inspect Core Artifact <i class="fas fa-external-link-alt ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="glass-card overflow-hidden">
+                        <div class="p-4">
+                            <span class="badge bg-primary mb-2">Web/Cloud</span>
+                            <h5>DeFi Smart Settlement Shell</h5>
+                            <p class="small opacity-75">High-throughput microservices pipeline designed for immediate secure real-time trade ledger updates.</p>
+                            <a href="#" class="btn btn-sm btn-link text-info p-0 mt-2" onclick="alert('Opening Sandbox Inspection Modal...')">Inspect Core Artifact <i class="fas fa-external-link-alt ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="glass-card overflow-hidden">
+                        <div class="p-4">
+                            <span class="badge bg-warning mb-2">UI-UX/Product</span>
+                            <h5>Spatial Compute Wallet Design</h5>
+                            <p class="small opacity-75">An immersive XR interface designed to orchestrate data-mesh assets across hybrid environments.</p>
+                            <a href="#" class="btn btn-sm btn-link text-info p-0 mt-2" onclick="alert('Opening Sandbox Inspection Modal...')">Inspect Core Artifact <i class="fas fa-external-link-alt ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faqs" class="py-5 bg-black-opacity">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 font-space">System <span class="gradient-text">Diagnostics (FAQs)</span></h2>
+                <p class="opacity-75">Answers to programmatic queries and training tracks</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion accordion-flush glass-card p-3" id="faqAccordion">
+                        <div class="accordion-item bg-transparent text-white border-bottom border-secondary-subtle">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white font-space" type="button" data-bs-toggle="collapse" data-bs-target="#f1">
+                                    Are non-technical applicants compatible with advanced AI tracks?
+                                </button>
+                            </h2>
+                            <div id="f1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body opacity-75 small">Yes. Every learning track initiates with structural foundational logic arrays before ramping up into advanced neural compute parameters.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-transparent text-white border-0 mt-2">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white font-space" type="button" data-bs-toggle="collapse" data-bs-target="#f2">
+                                    How does the automatic document delivery logic resolve dependencies?
+                                </button>
+                            </h2>
+                            <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body opacity-75 small">Upon user context confirmation within the system gateway, a secure token drops immediately to activate a download thread for the selected program syllabus.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2 class="display-5 font-space">Initialize <span class="gradient-text">Connection</span></h2>
+                    <p class="opacity-75">Submit your entry metrics to configure your professional vector trajectory.</p>
+                    
+                    <form class="mt-4" id="contactSystemForm" onsubmit="handleGlobalFormSubmission(event)">
+                        <div class="mb-3"><input type="text" class="form-control bg-dark text-white border-secondary p-3 rounded-4" placeholder="Full Name" required></div>
+                        <div class="mb-3"><input type="email" class="form-control bg-dark text-white border-secondary p-3 rounded-4" placeholder="Email Array" required></div>
+                        <div class="mb-3"><textarea class="form-control bg-dark text-white border-secondary p-3 rounded-4" rows="4" placeholder="Context Query Payload" required></textarea></div>
+                        <button type="submit" class="btn btn-premium w-100 py-3">Transmit Parameters</button>
+                    </form>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="glass-card p-3 h-100 d-flex flex-column justify-content-between">
+                        <div class="ratio ratio-16x9 rounded-4 overflow-hidden mb-3">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3444.1444976735544!2d78.00512807626354!3d30.318431974786725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f131!3m3!1m2!1s0x390929fa3a199047%3A0x6334a17724773c3d!2sGMS%20Road%2C%20Dehradun%2C%20Uttarakhand!5e0!3m2!1sen!2sin!4v1710000000000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f131!3m3!1m2!1s0x0%3A0x0!2zMzDCsDE5JzA2LjQiTiA3OMKwMDAnMjYuNSJF!5e0!3m2!1sen!2sin!4v1710000000000" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        <div>
+                            <h5>Digital Byte HQ</h5>
+                            <p class="small opacity-75 mb-2"><i class="fas fa-map-marker-alt text-info me-2"></i>Neelam Paradise, GMS Road, Dehradun, Uttarakhand, India</p>
+                            <p class="small mb-0"><i class="fas fa-envelope text-primary me-2"></i>ops@digitalbytesolution.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-5 border-top border-glass">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="gradient-text brand-font">DIGITAL BYTE</h4>
+                    <p class="small opacity-50">Next-generation cognitive skill integration systems configuring operational global tech engineering forces.</p>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <h6>System Architecture</h6>
+                    <ul class="list-unstyled small opacity-75 lh-lg">
+                        <li><a href="#about" class="text-white text-decoration-none">Core Vector Info</a></li>
+                        <li><a href="#courses" class="text-white text-decoration-none">Program Matrix</a></li>
+                        <li><a href="#internship" class="text-white text-decoration-none">Sandboxing Pipeline</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
+                    <h6>Subscribe to System Patches</h6>
+                    <div class="input-group mt-3 rounded-5 overflow-hidden border border-secondary">
+                        <input type="email" class="form-control bg-dark text-white border-0 px-3" placeholder="user@domain.com">
+                        <button class="btn btn-premium px-4" onclick="alert('Secure Email Hook Registered!')">Hook</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 opacity-25">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small opacity-50 gap-2">
+                <span>&copy; 2026 Digital Byte Solution Core System. All rights reserved.</span>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-white text-decoration-none">Privacy Guard</a>
+                    <a href="#" class="text-white text-decoration-none">Usage Parameters</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/911234567890" class="whatsapp-float" target="_blank" aria-label="Contact Dev Ops Support on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="modal fade" id="gatewayModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary rounded-4 p-3 glass-card">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title font-space" id="gatewayModalLabel">Register to Access System Files</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-shadow="none" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="syllabusGatewayForm" onsubmit="processSecureAssetDelivery(event)">
+                        <input type="hidden" id="targetCourseField">
+                        <div class="mb-3"><input type="text" id="gName" class="form-control bg-black text-white border-secondary p-3 rounded-3" placeholder="Full Identity String" required></div>
+                        <div class="mb-3"><input type="email" id="gEmail" class="form-control bg-black text-white border-secondary p-3 rounded-3" placeholder="Secure Email Route" required></div>
+                        <div class="mb-3"><input type="tel" id="gPhone" class="form-control bg-black text-white border-secondary p-3 rounded-3" placeholder="Mobile Array Code (10 digits)" pattern="[0-9]{10}" required></div>
+                        <div class="mb-3"><input type="text" id="gCity" class="form-control bg-black text-white border-secondary p-3 rounded-3" placeholder="Current Regional Geo-Location" required></div>
+                        <div class="mb-3">
+                            <select id="gQual" class="form-select bg-black text-white border-secondary p-3 rounded-3" required>
+                                <option value="" disabled selected>Current Computational Qualification</option>
+                                <option value="undergrad">Undergraduate Matrix</option>
+                                <option value="postgrad">Postgraduate Layer</option>
+                                <option value="professional">Professional Operator</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-premium w-100 py-3 mt-2">Validate Registration & Fetch Asset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary rounded-4 p-4 glass-card">
+                <h4 class="brand-font mb-3">Identity Validation Portal</h4>
+                <p class="small opacity-75">Connect with your credential set to authenticate profile context paths.</p>
+                <button class="btn btn-premium w-100 my-2" onclick="alert('Redirecting secure identity callback loop...')">Authenticate via OAuth 2.0</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script>
+        // Production Grade Academic System Program Configurations Datastructure Object Array
+        const courseRegistryDataset = [
+            { id: "ai-core", name: "Artificial Intelligence Matrix", category: "ai", length: "24 Wks", cost: "$1,200", ranking: "4.9", badge: "Core AI Enterprise" },
+            { id: "ml-ops", name: "Machine Learning Engineering", category: "ai", length: "18 Wks", cost: "$950", ranking: "4.8", badge: "Advanced Compute" },
+            { id: "prompt-eng", name: "Prompt Architecture & LLMs", category: "ai", length: "6 Wks", cost: "$350", ranking: "4.7", badge: "Cognitive Layer" },
+            { id: "fullstack-ai", name: "Full Stack Development with AI", category: "dev", length: "32 Wks", cost: "$1,500", ranking: "5.0", badge: "Dual Spec Flag" },
+            { id: "mern-core", name: "MERN Stack Cloud Cluster", category: "dev", length: "16 Wks", cost: "$800", ranking: "4.8", badge: "Web Engine Tier" },
+            { id: "cyber-sec", name: "Ethical Hacking & Cyber Ops", category: "cloud", length: "20 Wks", cost: "$1,100", ranking: "4.9", badge: "SecOps Def" },
+            { id: "cloud-devops", name: "AWS & Azure Multi-Cloud DevOps", category: "cloud", length: "24 Wks", cost: "$1,350", ranking: "4.9", badge: "SysOps Cluster" },
+            { id: "uiux-spatial", name: "UI/UX Immersive Spatial Interface", category: "design", length: "12 Wks", cost: "$600", ranking: "4.6", badge: "Product Flow" },
+            { id: "digital-mktg", name: "Digital Marketing Analytics with AI", category: "design", length: "10 Wks", cost: "$450", ranking: "4.5", badge: "Growth Loop" }
+        ];
+
+        // System Initialization Procedures Lifecycle
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeDynamicTypography();
+            renderCourseMatrixSystem(courseRegistryDataset);
+            initializeInteractiveCursorTracker();
+            initialize3DNeuralBackgroundSpace();
+            
+            // Teardown execution loop for system startup loading visualization layer
+            setTimeout(() => {
+                const splash = document.getElementById("loader");
+                if(splash) { splash.style.opacity = '0'; setTimeout(() => splash.remove(), 500); }
+                AOS.init({ duration: 800, once: true });
+            }, 1000);
+
+            initializeNumericalMetricalTickingEngine();
+        });
+
+        // Fluid Cursor Tracker Implementation Mechanics
+        function initializeInteractiveCursorTracker() {
+            const cursor = document.getElementById("cursor-glow");
+            window.addEventListener("mousemove", (e) => {
+                gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
+            });
+        }
+
+        // Space Grotesk Multi-Variant Text String Rotation Core Logic Engine
+        function initializeDynamicTypography() {
+            new Typed("#typed-text", {
+                strings: ["AI-Powered Systems", "Enterprise Architecture", "Advanced Cloud Design", "Cyber Resilience Operations"],
+                typeSpeed: 60, backSpeed: 40, loop: true, backDelay: 1500
+            });
+        }
+
+        // Adaptive client-side functional database renderer mapping loop
+        function renderCourseMatrixSystem(targetDataset) {
+            const targetContainer = document.getElementById("courses-grid-wrapper");
+            if(!targetContainer) return;
+            
+            targetContainer.innerHTML = targetDataset.map(item => `
+                <div class="col-md-6 col-lg-4 course-card-wrapper-item" data-category="${item.category}" data-aos="fade-up">
+                    <div class="glass-card h-100 overflow-hidden d-flex flex-column justify-content-between position-relative">
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-secondary-subtle text-white border border-secondary small">${item.badge}</span>
+                                <span class="text-warning small"><i class="fas fa-star me-1"></i>${item.ranking}</span>
+                            </div>
+                            <h4 class="h5 font-space mb-3 text-white">${item.name}</h4>
+                            <div class="d-flex gap-3 small opacity-75 mb-3">
+                                <span><i class="fas fa-clock text-info me-1"></i>${item.length}</span>
+                                <span><i class="fas fa-tags text-primary me-1"></i>${item.cost}</span>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0 border-top border-glass mt-auto bg-black-opacity">
+                            <div class="row g-2 pt-3">
+                                <div class="col-6">
+                                    <button class="btn btn-sm btn-outline-premium w-100 text-truncate font-space" onclick="triggerSyllabusDownload('${item.name}')">Syllabus</button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-sm btn-premium w-100 text-truncate font-space" data-bs-toggle="modal" data-bs-target="#authModal">Enroll</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Advanced filter layer function logic execution mapping route
+        function filterCourses(category, element) {
+            document.querySelectorAll("#course-filter-container button").forEach(btn => btn.classList.remove("active-filter", "btn-info"));
+            element.classList.add("active-filter");
+            
+            const cards = document.querySelectorAll(".course-card-wrapper-item");
+            cards.forEach(card => {
+                if (category === "all" || card.getAttribute("data-category") === category) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Functional Pipeline Intercept Routing Interfacing Data Access Forms
+        function triggerSyllabusDownload(courseName) {
+            document.getElementById("targetCourseField").value = courseName;
+            document.getElementById("gatewayModalLabel").innerText = `Access Pipeline: ${courseName}`;
+            const targetPopupInstance = new bootstrap.Modal(document.getElementById('gatewayModal'));
+            targetPopupInstance.show();
+        }
+
+        // Validation & Simulated Automated Asset Processing Form Mechanics Lifecycle
+        function processSecureAssetDelivery(event) {
+            event.preventDefault();
+            
+            const clientPayload = {
+                targetAsset: document.getElementById("targetCourseField").value,
+                identity: document.getElementById("gName").value,
+                email: document.getElementById("gEmail").value,
+                mobile: document.getElementById("gPhone").value,
+                geo: document.getElementById("gCity").value,
+                qual: document.getElementById("gQual").value,
+                timestampUTC: new Date().toISOString()
+            };
+
+            console.log("Transmitting Validated Struct to Operational Endpoint API...", clientPayload);
+            
+            // Dismiss active modal interface configuration view safely
+            bootstrap.Modal.getInstance(document.getElementById('gatewayModal')).hide();
+            
+            alert(`Parameters verified for: ${clientPayload.identity}.\nDownloading secure PDF asset module for course spec: ${clientPayload.targetAsset}`);
+            
+            // Injecting programmatically tracking virtual trigger down to window execution loop
+            const mockAssetAnchor = document.createElement('a');
+            mockAssetAnchor.href = '#'; 
+            mockAssetAnchor.setAttribute('download', `Digital_Byte_${clientPayload.targetAsset.replace(/\s+/g, '_')}_Syllabus.pdf`);
+            document.body.appendChild(mockAssetAnchor);
+            mockAssetAnchor.click();
+            mockAssetAnchor.remove();
+            document.getElementById("syllabusGatewayForm").reset();
+        }
+
+        function handleGlobalFormSubmission(event) {
+            event.preventDefault();
+            alert("Transmission complete. Enterprise communications routing array updated successfully.");
+            event.target.reset();
+        }
+
+        // Performance-focused numerical step counters running on requestAnimationFrame via IntersectionObserver
+        function initializeNumericalMetricalTickingEngine() {
+            const targets = document.querySelectorAll(".counter-value");
+            const profileTrackerObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targetNode = entry.target;
+                        const finalLimit = parseInt(targetNode.getAttribute("data-target"), 10);
+                        let primaryValue = 0;
+                        const tickingCallbackStep = () => {
+                            const deltaIncrement = Math.ceil(finalLimit / 30);
+                            primaryValue += deltaIncrement;
+                            if (primaryValue >= finalLimit) {
+                                targetNode.innerText = finalLimit.toLocaleString() + (finalLimit === 98 ? "%" : "+");
+                            } else {
+                                targetNode.innerText = primaryValue.toLocaleString();
+                                requestAnimationFrame(tickingCallbackStep);
+                            }
+                        };
+                        requestAnimationFrame(tickingCallbackStep);
+                        observer.unobserve(targetNode);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            targets.forEach(node => profileTrackerObserver.observe(node));
+        }
+
+        // Lightweight fallback Three.js scene configuration engine to deploy low-cost background particles
+        function initialize3DNeuralBackgroundSpace() {
+            const parentFrame = document.getElementById('canvas-container');
+            if(!parentFrame) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            parentFrame.appendChild(renderer.domElement);
+
+            // Constructing geometric coordinate buffers for particle systems safely
+            const elementGeometry = new THREE.BufferGeometry();
+            const coordinateCount = 750;
+            const itemPositionCoordinatesArray = new Float32Array(coordinateCount * 3);
+
+            for(let i=0; i < coordinateCount * 3; i++) {
+                itemPositionCoordinatesArray[i] = (Math.random() - 0.5) * 12;
+            }
+
+            elementGeometry.setAttribute('position', new THREE.BufferAttribute(itemPositionCoordinatesArray, 3));
+            
+            const neuralParticleMaterial = new THREE.PointsMaterial({
+                size: 0.035,
+                color: 0x00C6FF,
+                transparent: true,
+                opacity: 0.4,
+                blending: THREE.AdditiveBlending
+            });
+
+            const coreMeshCloud = new THREE.Points(elementGeometry, neuralParticleMaterial);
+            scene.add(coreMeshCloud);
+            camera.position.z = 5;
+
+            // Runtime render frame processing sequence loop
+            function animateCanvasSceneRuntimeFrame() {
+                requestAnimationFrame(animateCanvasSceneRuntimeFrame);
+                coreMeshCloud.rotation.y += 0.0008;
+                coreMeshCloud.rotation.x += 0.0003;
+                renderer.render(scene, camera);
+            }
+            animateCanvasSceneRuntimeFrame();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // Theme switching engine toggling state machine attributes
+        const themeButtonToggleElement = document.getElementById("theme-toggle");
+        themeButtonToggleElement.addEventListener("click", () => {
+            const bodyStateNode = document.body;
+            const runtimeThemeStateValue = bodyStateNode.getAttribute("data-theme");
+            if (runtimeThemeStateValue === "dark") {
+                bodyStateNode.setAttribute("data-theme", "light");
+                themeButtonToggleElement.innerHTML = `<i class="fas fa-sun fs-5 text-danger"></i>`;
+            } else {
+                bodyStateNode.setAttribute("data-theme", "dark");
+                themeButtonToggleElement.innerHTML = `<i class="fas fa-moon fs-5 text-warning"></i>`;
+            }
+        });
+    </script>
+</body>
+</html>

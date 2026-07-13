@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Marketing Course | Digital Byte Solution</title>
+    
+    <!-- Importing a modern Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* === CSS VARIABLES FOR THEME COLORS === */
+        :root {
+            --primary: #00f2fe;      /* Neon Cyan */
+            --secondary: #4facfe;    /* Bright Blue */
+            --bg-dark: #0a0f1c;      /* Deep Dark Blue/Black */
+            --card-bg: #111827;      /* Slightly lighter dark for cards */
+            --text-main: #f3f4f6;    /* Off-white text */
+            --text-muted: #9ca3af;   /* Gray text for secondary info */
+        }
+
+        /* === GLOBAL RESET & TYPOGRAPHY === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* === HEADER / HERO SECTION === */
+        header {
+            text-align: center;
+            padding: 4rem 1rem 3rem 1rem;
+            background: radial-gradient(circle at top, #1e293b 0%, var(--bg-dark) 70%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .hero-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4); /* Glow effect */
+        }
+
+        header h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        header h2 {
+            font-size: 1.5rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 1.5rem;
+            font-weight: 300;
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* === GENERAL SECTION STYLING === */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        section > h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3.5rem;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Animated underline for section headings */
+        section > h2::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            display: block;
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* === COURSE CURRICULUM GRID === */
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            background: rgba(246, 247, 248, 0.9);
+            padding: 2rem;
+            border-radius: 30px;
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+        .benefits-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* Glassmorphism Cards */
+        .card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Top highlight bar on hover */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border-color: rgba(0, 242, 254, 0.3);
+            background: rgba(17, 24, 39, 0.8); /* Slightly transparent on hover */
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 1.05rem;
+            transition: color 0.3s ease;
+        }
+        
+        .card li:hover {
+            color: #fff; /* Highlights text when hovering over item */
+        }
+
+        /* Custom Checkmark Bullet Points */
+        .card li::before {
+            content: '✓';
+            color: var(--bg-dark);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* === EXCLUSIVE BENEFITS STYLING === */
+        .benefits-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .benefit-badge {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            cursor: default;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Glowing gradient effect on hover */
+        .benefit-badge:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            color: var(--bg-dark);
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        /* === FOOTER STYLING === */
+        footer {
+            background: #05080f; /* Even darker shade for footer */
+            text-align: center;
+            padding: 3rem 1rem 2rem 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 1.5rem;
+        }
+
+        footer h2 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        footer h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .footer-tagline {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.8rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50px;
+            transition: background 0.3s ease;
+            width: fit-content;
+        }
+
+        .contact-info p:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .logo { width: 60px; height: 60px; }
+            section > h2 { font-size: 1.8rem; }
+            .card { padding: 1.5rem; }
+            .benefit-badge { padding: 1rem 1.5rem; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="hero-title">
+        <!-- Use the available transparent logo asset for Digital Byte Solutions -->
+        <img src="/12.jpeg" alt="Digital Byte Solutions Logo" class="logo" onerror="this.src='https://ui-avatars.com/api/?name=DB&background=00f2fe&color=0a0f1c&rounded=true&size=80'">
+        <h1>Digital Byte Solutions</h1>
+    </div>
+    <p>Learn from Industry Experts & Build Your Career</p>
+</header>
+
+<section>
+    <h2>Course Curriculum</h2>
+    
+    <!-- Added Grid Container -->
+    <div class="curriculum-grid">
+
+        <!-- Added Card Classes -->
+        <div class="card">
+            <h3>Data Science & Analytics</h3>
+            <ul>
+                <li>Python for Data Science</li>
+                <li>Statistics & Probability</li>
+                <li>Data Wrangling & Cleaning</li>
+                <li>Exploratory Data Analysis (EDA)</li>
+                <li>Data Visualization (Matplotlib / Seaborn)</li>
+                <li>SQL & Databases for Analytics</li>
+                <li>Data Pipelines & ETL</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Data Science Skills</h3>
+            <ul>
+                <li>Statistical Modeling & Inference</li>
+                <li>Supervised & Unsupervised Methods</li>
+                <li>Feature Engineering & Selection</li>
+                <li>Model Evaluation & Cross-Validation</li>
+                <li>Time Series & Forecasting</li>
+                <li>SQL, NoSQL & Data Warehousing</li>
+                <li>Scalable Data Processing (Pandas / Spark)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Advanced Data Science Applications</h3>
+            <ul>
+                <li>Recommendation Systems</li>
+                <li>Anomaly Detection</li>
+                <li>Predictive & Prescriptive Analytics</li>
+                <li>Time Series Forecasting</li>
+                <li>A/B Testing & Experimentation</li>
+                <li>Model Deployment & Monitoring</li>
+                <li>Ethics, Bias & Explainability</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <h2>Exclusive Benefits</h2>
+    
+    <!-- Added Flex Container -->
+    <div class="benefits-container">
+        <!-- Added Badge Classes -->
+        <div class="benefit-badge">Internship</div>
+        <div class="benefit-badge">5+ Certifications</div>
+        <div class="benefit-badge">Marketing Tools</div>
+        <div class="benefit-badge">100% Placement Assistance</div>
+        <div class="benefit-badge">5+ Industry Level Projects</div>
+    </div>
+</section>
+
+<footer>
+    <h2>Contact Us</h2>
+    <h3>Digital Byte Solution</h3>
+    <p class="footer-tagline">Secure Your Digital Future with Job Ready Skills</p>
+    
+    <!-- Grouped contact info for better layout -->
+    <div class="contact-info">
+        <p>📞 +91 9028370602</p>
+        <p>🌐 digitalbytesolution.com</p>
+        <p>✉ contact@digitalbytesolution.com</p>
+    </div>
+</footer>
+
+</body>
+</html>

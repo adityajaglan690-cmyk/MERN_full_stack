@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    #header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #232f3e;
+        color: white;
+        padding: 10px 20px;
+    }
+    #search input {
+        padding: 5px;
+        width: 300px;
+    }
+    #search button {
+        padding: 5px 10px;
+        background-color: #febd69;
+        border: none;
+        cursor: pointer;
+    }
+    .nav-links a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+    }
+    .hero {
+        background-color: #f3f3f3;
+        padding: 50px 20px;
+        text-align: center;
+    }
+    .products {
+        padding: 20px;
+    }
+    .product-list {
+        display: flex;
+        justify-content: space-around;
+    }
+    .product-item {
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div id="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo" width="100px"> 
+        </div>
+        <div id="search">
+            <input type="text" placeholder="Search for products, brands and more">
+            <button>Search</button>
+        </div>
+        <div class="nav-links">
+            <a href="#">account</a>
+            <a href="#">Orders</a>
+            <a href="#">Cart</a>
+        </div>
+    </header>
+    <section class="hero">
+        <h2>Welcome to Amazon</h2>
+        <p>Discover the best products at the lowest prices.</p>
+    </section>
+    <section class="products">
+        <h2>Featured Products</h2>
+        <div class="product-list">
+            <div class="product-item">
+                <img src="https://via.placeholder.com/150" alt="Product 1">
+                <h3>Product 1</h3>
+                <p>$19.99</p>
+            </div>
+            <div class="product-item">
+                <img src="https://via.placeholder.com/150" alt="Product 2">
+                <h3>Product 2</h3>
+                <p>$29.99</p>
+            </div>
+            <div class="product-item">
+                <img src="https://via.placeholder.com/150" alt="Product 3">
+                <h3>Product 3</h3>
+                <p>$39.99</p>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 Amazon. All rights reserved.</p>
+    </footer>
+</body>
+</html>

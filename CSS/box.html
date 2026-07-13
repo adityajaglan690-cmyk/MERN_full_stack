@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #parent{
+        background-color: brown;
+        height: 1000px;
+        width: 1000px;
+        margin-left: 50px;
+        padding: 50px;
+
+    }
+    #child{
+        background-color: blue;
+        height: 500px;
+        width: 500px;
+        margin-left: 50px;
+        padding: 50px;
+        border: 2px solid black;
+    }
+    #duggu{
+        background-color: green;
+        height: 200px;
+        width: 200px;
+        margin-left: 20px;
+        padding: 20px;
+        border: 2px solid black;
+    }
+    .grandchild{
+        background-color: yellow;
+        height: 100px;
+        width: 100px;
+        margin-left: 10px;
+        padding: 10px;
+        border: 2px solid black;
+    }
+    #child:hover{
+        background-color: red;
+    }
+    #duggu:hover{
+        background-color: pink;
+    }
+    .grandchild:hover{
+        background-color: orange;
+    }
+    .grandchild:active{
+        background-color: purple;
+    }
+    #child:active{
+        background-color: cyan;
+    }
+    #duggu:active{
+        background-color: magenta;
+    }
+
+</style>
+</body>
+    <div id="parent">
+        this is parent
+        <div id="child">
+            this is child
+            <div id="duggu">
+                this is duggu
+                <div class="grandchild">
+                    this is grandchild
+                    <div class="grandchild">
+                        this is grandchild 2
+                        <div class="grandchild">
+                            this is grandchild 3
+                            <div class="grandchild">
+                                this is grandchild 4
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

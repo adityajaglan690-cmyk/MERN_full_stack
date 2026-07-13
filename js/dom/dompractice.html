@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #circle {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background-color: red;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .buttons button {
+            height: 50px;
+            width: 100px;
+            border: none;
+            border-radius: 3px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="circle"></h1>
+        <div class="buttons">
+            <button id="btn">blue</button>
+            <button id="btn2">white</button>
+            <button id="btn3">green</button>
+            <button id="btn4">red</button>
+            <button id="btn5">yellow</button>
+            <button id="btn6">orange</button>
+        </div>
+    </div>
+</body>
+<script>
+    let h1 = document.getElementById("circle");
+    h1.style.backgroundColor = "red";
+
+    let btn = document.getElementById("btn");
+    btn.addEventListener('click', () => {
+        h1.style.backgroundColor = "blue";
+    });
+
+    let btn2 = document.getElementById("btn2");
+    btn2.addEventListener('click', () => {
+        h1.style.backgroundColor = "white";
+    });
+
+    let btn3 = document.getElementById("btn3");
+    btn3.addEventListener('click', () => {
+        h1.style.backgroundColor = "green";
+    });
+
+    let btn4 = document.getElementById("btn4");
+    btn4.addEventListener('click', () => {
+        h1.style.backgroundColor = "red";
+    });
+
+    let btn5 = document.getElementById("btn5");
+    btn5.addEventListener('click', () => {
+        h1.style.backgroundColor = "yellow";
+    });
+
+    let btn6 = document.getElementById("btn6");
+    btn6.addEventListener('click', () => {
+        h1.style.backgroundColor = "orange";
+    });
+</script>
+</html>

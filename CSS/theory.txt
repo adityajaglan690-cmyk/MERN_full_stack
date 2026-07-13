@@ -1,0 +1,16 @@
+What is CSS : Cascading Sstyle Sheet
+
+Use of CSS : To make the web pages attractive and stylish
+
+Types of CSS :
+            1. Inline CSS
+            2. Internal CSS
+            3. External CSS
+
+Property of CSS:
+        high Priority:  Inline CSS >> Internal CSS >> External CSS(if important Property is not applied)
+
+How to implement the CSS :
+            inline css = inside the element
+            internal css = inside the same html file within the style tag
+            external css = in new file with extention of the {.css}

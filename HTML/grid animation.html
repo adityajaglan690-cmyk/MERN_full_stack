@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Grid Effect</title>
+    <style>
+        /* Reset and layout */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #050505; /* Deep black background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* The grid container */
+        #grid {
+            display: flex;
+            flex-wrap: wrap;
+            width: 800px; /* Adjust based on preference */
+            gap: 6px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        /* Default state of the squares */
+        .square {
+            width: 14px;
+            height: 20px;
+            background-color: #c93b22; /* Red color matching the video */
+            border: 2px solid transparent;
+            box-sizing: border-box;
+            /* Smoothly animate back to resting state */
+            transition: transform 0.1s ease-out, background-color 0.1s, border-color 0.1s;
+        }
+
+        /* Hover state for the square directly under the cursor.
+           Using !important to override the inline styles applied by JavaScript.
+        */
+        .square:hover {
+            background-color: transparent !important;
+            border-color: #ffffff !important;
+            transform: rotate(0deg) scale(1) !important;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="grid"></div>
+
+    <script>
+        const grid = document.getElementById('grid');
+        const numberOfSquares = 600; // Total squares to fill the container
+        const squares = [];
+
+        // 1. Generate the grid items dynamically
+        for (let i = 0; i < numberOfSquares; i++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+            grid.appendChild(square);
+            squares.push(square);
+        }
+
+        // 2. Track mouse movement and apply the mathematical effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            squares.forEach((square) => {
+                // Get the exact center coordinates of the current square
+                const rect = square.getBoundingClientRect();
+                const squareX = rect.left + (rect.width / 2);
+                const squareY = rect.top + (rect.height / 2);
+
+                // Calculate the distance between the mouse and the square
+                const dx = mouseX - squareX;
+                const dy = mouseY - squareY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                const maxDistance = 50; // The radius of the "ripple" effect
+
+                if (distance < maxDistance) {
+                    // Calculate intensity: 1 when mouse is exactly on it, 0 at the edge of maxDistance
+                    const intensity = 1 - (distance / maxDistance);
+                    
+                    // Calculate rotation based on distance and position
+                    // We use atan2 to get the angle toward the mouse, converting radians to degrees
+                    const angleRad = Math.atan2(dy, dx);
+                    const angleDeg = angleRad * (180 / Math.PI);
+                    
+                    // The closer the mouse, the stronger the rotation effect
+                    const rotation = angleDeg * intensity * 0.5; 
+                    
+                    // Apply rotation and a slight scale-down effect for depth
+                    square.style.transform = `rotate(${rotation}deg) scale(${1 - (intensity * 0.2)})`;
+                } else {
+                    // Reset squares that are out of range
+                    square.style.transform = `rotate(0deg) scale(1)`;
+                }
+            });
+        });
+
+        // 3. Reset the grid completely when the mouse leaves the window
+        document.addEventListener('mouseleave', () => {
+            squares.forEach(square => {
+                square.style.transform = `rotate(0deg) scale(1)`;
+            });
+        });
+    </script>
+</body>
+</html>

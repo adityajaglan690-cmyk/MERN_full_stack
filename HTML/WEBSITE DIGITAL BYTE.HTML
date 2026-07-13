@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Byte Solutions — Transforming Futures Through Technology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f0ff',
+                            100: '#e0e0ff',
+                            200: '#c4b5fd',
+                            300: '#a78bfa',
+                            400: '#8b5cf6',
+                            500: '#7c3aed',
+                            600: '#6d28d9',
+                            700: '#5b21b6',
+                            800: '#4c1d95',
+                            900: '#3b0764',
+                        },
+                        accent: {
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-text-light {
+            background: linear-gradient(135deg, #a5b4fc, #c4b5fd, #e9d5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Gradient Border */
+        .gradient-border {
+            position: relative;
+            background: white;
+            border-radius: 1rem;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 1.1rem;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed, #a855f7);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .gradient-border:hover::before {
+            opacity: 1;
+        }
+        
+        /* Hero Canvas */
+        #heroCanvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+        }
+        
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        .float-anim-delay { animation: float 6s ease-in-out 2s infinite; }
+        .float-anim-delay2 { animation: float 6s ease-in-out 4s infinite; }
+        
+        /* Pulse Ring */
+        @keyframes pulseRing {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 0.2; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+        .pulse-ring { animation: pulseRing 3s ease-in-out infinite; }
+        
+        /* Gradient Background */
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f0a2e 0%, #1a1145 25%, #0d1b3e 50%, #0f0a2e 75%, #1a0a3e 100%);
+        }
+        .section-dark {
+            background: linear-gradient(180deg, #0f0a2e, #130d35, #0f0a2e);
+        }
+        
+        /* Course Card Glow */
+        .course-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .course-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px -15px rgba(124, 58, 237, 0.3);
+        }
+        
+        /* Stats Counter */
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f0a2e; }
+        ::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 3px; }
+        
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+        
+        /* Nav blur */
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(15, 10, 46, 0.85);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+        }
+        
+        /* Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track { animation: marquee 30s linear infinite; }
+        
+        /* Testimonial card */
+        .testimonial-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* CTA gradient */
+        .cta-gradient {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+        }
+        .cta-gradient:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            box-shadow: 0 10px 40px -10px rgba(124, 58, 237, 0.5);
+        }
+        
+        /* Outline button */
+        .btn-outline {
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            color: #c4b5fd;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: #8b5cf6;
+            color: white;
+        }
+        
+        /* Icon container gradient */
+        .icon-gradient {
+            background: linear-gradient(135deg, rgba(79,70,229,0.2), rgba(124,58,237,0.2));
+            border: 1px solid rgba(139,92,246,0.2);
+        }
+        
+        /* Tab active */
+        .tab-active {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+        }
+        
+        /* Light section */
+        .light-section {
+            background: linear-gradient(180deg, #f8f7ff, #f0eeff, #f8f7ff);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Course icon bg */
+        .course-icon-bg {
+            background: linear-gradient(135deg, rgba(79,70,229,0.15), rgba(168,85,247,0.15));
+            border: 1px solid rgba(139,92,246,0.2);
+        }
+
+        /* Process step line */
+        .process-line {
+            background: linear-gradient(180deg, #4f46e5, #7c3aed, transparent);
+        }
+
+        /* Placement company logos opacity */
+        .company-logo {
+            opacity: 0.4;
+            filter: grayscale(100%) brightness(2);
+            transition: all 0.3s ease;
+        }
+        .company-logo:hover {
+            opacity: 0.8;
+            filter: grayscale(0%) brightness(1);
+        }
+    </style>
+</head>
+<body class="bg-[#0f0a2e] text-white font-inter">
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 nav-blur transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#hero" class="flex items-center gap-3 group">
+                <img src="https://z-cdn-media.chatglm.cn/files/c14e913d-4156-49e1-9769-e2729bac3c14.jpeg?auth_key=1882282236-237ed18415914a6aa6425d105fef6f5a-0-5125247e291d26a97c14a574c0525e17" alt="Digital Byte Solutions" class="h-10 w-auto">
+            </a>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="#about" class="text-sm text-gray-400 hover:text-white transition-colors">About</a>
+                <a href="#courses" class="text-sm text-gray-400 hover:text-white transition-colors">Courses</a>
+                <a href="#process" class="text-sm text-gray-400 hover:text-white transition-colors">Process</a>
+                <a href="#placements" class="text-sm text-gray-400 hover:text-white transition-colors">Placements</a>
+                <a href="#testimonials" class="text-sm text-gray-400 hover:text-white transition-colors">Testimonials</a>
+                <a href="#contact" class="cta-gradient text-sm font-semibold px-6 py-2.5 rounded-full text-white">Enroll Now</a>
+            </div>
+            
+            <!-- Mobile Hamburger -->
+            <button id="menuBtn" class="lg:hidden text-white p-2" onclick="toggleMenu()">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-80 h-full z-[60] bg-[#130d35] border-l border-purple-500/20 p-8 flex flex-col">
+        <button onclick="toggleMenu()" class="self-end mb-8 text-gray-400 hover:text-white">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="flex flex-col gap-6">
+            <a href="#about" onclick="toggleMenu()" class="text-lg text-gray-300 hover:text-white transition-colors">About</a>
+            <a href="#courses" onclick="toggleMenu()" class="text-lg text-gray-300 hover:text-white transition-colors">Courses</a>
+            <a href="#process" onclick="toggleMenu()" class="text-lg text-gray-300 hover:text-white transition-colors">Process</a>
+            <a href="#placements" onclick="toggleMenu()" class="text-lg text-gray-300 hover:text-white transition-colors">Placements</a>
+            <a href="#testimonials" onclick="toggleMenu()" class="text-lg text-gray-300 hover:text-white transition-colors">Testimonials</a>
+            <a href="#contact" onclick="toggleMenu()" class="cta-gradient text-center text-sm font-semibold px-6 py-3 rounded-full text-white mt-4">Enroll Now</a>
+        </div>
+    </div>
+    <div id="menuOverlay" class="fixed inset-0 bg-black/50 z-[55] hidden" onclick="toggleMenu()"></div>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section id="hero" class="hero-gradient relative min-h-screen flex items-center justify-center overflow-hidden">
+        <canvas id="heroCanvas"></canvas>
+        
+        <!-- Decorative Glows -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pulse-ring"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-600/15 rounded-full blur-[100px] pulse-ring" style="animation-delay: 1.5s;"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center pt-24 pb-20">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 bg-white/5 border border-purple-500/20 rounded-full px-5 py-2 mb-8 float-anim">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span class="text-xs font-medium text-purple-200 tracking-wide uppercase">Admissions Open 2025</span>
+            </div>
+            
+            <!-- Heading -->
+            <h1 class="font-space font-bold text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight mb-8">
+                <span class="block text-white">Master the</span>
+                <span class="block gradient-text mt-2">Digital Future</span>
+            </h1>
+            
+            <!-- Subheading -->
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 font-light leading-relaxed mb-12">
+                Industry-aligned training programs in AI, Full Stack Development, Data Science & Cloud Computing. 
+                Learn from experts. Build real projects. Get placed.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="#courses" class="cta-gradient text-sm font-bold uppercase tracking-widest px-10 py-4 rounded-full text-white flex items-center gap-2">
+                    Explore Courses
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a href="#contact" class="btn-outline text-sm font-semibold uppercase tracking-widest px-10 py-4 rounded-full flex items-center gap-2">
+                    Book Free Demo
+                    <i data-lucide="play" class="w-4 h-4"></i>
+                </a>
+            </div>
+            
+            <!-- Quick Stats Row -->
+            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold font-space text-white" data-count="5000">0</div>
+                    <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Students Trained</div>
+                </div>
+                <div class="w-px h-10 bg-purple-500/20 hidden md:block"></div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold font-space text-white" data-count="95">0</div>
+                    <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Placement Rate %</div>
+                </div>
+                <div class="w-px h-10 bg-purple-500/20 hidden md:block"></div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold font-space text-white" data-count="150">0</div>
+                    <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Hiring Partners</div>
+                </div>
+                <div class="w-px h-10 bg-purple-500/20 hidden md:block"></div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold font-space text-white" data-count="7">0</div>
+                    <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Expert Courses</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-gray-600">Scroll</span>
+            <div class="w-5 h-8 border border-gray-600 rounded-full flex justify-center pt-1.5">
+                <div class="w-1 h-2 bg-purple-400 rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BRAND MARQUEE ========== -->
+    <div class="bg-[#0a0620] border-y border-purple-500/10 py-5 overflow-hidden">
+        <div class="flex marquee-track" style="width: max-content;">
+            <div class="flex items-center gap-12 px-6">
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">AI & Machine Learning</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Digital Marketing</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Data Science</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">MERN Full Stack</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Java Full Stack</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Python Full Stack</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Cloud Computing</span>
+                <span class="text-purple-500/30">✦</span>
+            </div>
+            <div class="flex items-center gap-12 px-6">
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">AI & Machine Learning</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Digital Marketing</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Data Science</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">MERN Full Stack</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Java Full Stack</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Python Full Stack</span>
+                <span class="text-purple-500/30">✦</span>
+                <span class="text-sm text-gray-600 uppercase tracking-[0.2em] whitespace-nowrap">Cloud Computing</span>
+                <span class="text-purple-500/30">✦</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ABOUT SECTION ========== -->
+    <section id="about" class="section-dark py-24 md:py-32 relative">
+        <div class="absolute top-0 right-0 w-72 h-72 bg-indigo-600/10 rounded-full blur-[100px]"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left -->
+                <div class="reveal">
+                    <div class="inline-flex items-center gap-2 mb-6">
+                        <div class="w-8 h-px bg-purple-500"></div>
+                        <span class="text-xs font-semibold uppercase tracking-[0.2em] text-purple-400">Who We Are</span>
+                    </div>
+                    <h2 class="font-space font-bold text-4xl md:text-5xl leading-tight mb-6">
+                        Shaping <span class="gradient-text">Digital Careers</span> Since Day One
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        Digital Byte Solutions is a premier technology training institute dedicated to bridging the gap between academic learning and industry requirements. We don't just teach — we transform aspiring professionals into industry-ready talent.
+                    </p>
+                    <p class="text-gray-500 leading-relaxed mb-8">
+                        With a curriculum designed by industry veterans, hands-on project experience, and a robust placement network, we ensure every student who walks through our doors walks out with confidence, skills, and a career.
+                    </p>
+                    
+                    <!-- Feature Pills -->
+                    <div class="flex flex-wrap gap-3">
+                        <div class="flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 py-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-400"></i>
+                            <span class="text-sm text-purple-200">Industry Mentors</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 py-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-400"></i>
+                            <span class="text-sm text-purple-200">Real Projects</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 py-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-400"></i>
+                            <span class="text-sm text-purple-200">100% Placement Assist</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 py-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-400"></i>
+                            <span class="text-sm text-purple-200">Certifications</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right - Visual Card -->
+                <div class="reveal" style="transition-delay: 200ms;">
+                    <div class="relative">
+                        <!-- Main card -->
+                        <div class="bg-gradient-to-br from-purple-900/30 to-indigo-900/20 border border-purple-500/20 rounded-2xl p-8 md:p-10">
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="text-center p-4 bg-white/5 rounded-xl">
+                                    <div class="text-3xl font-bold font-space gradient-text">4.9</div>
+                                    <div class="flex items-center justify-center gap-0.5 my-2">
+                                        <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                        <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                        <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                        <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                        <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                    </div>
+                                    <div class="text-xs text-gray-500">Google Rating</div>
+                                </div>
+                                <div class="text-center p-4 bg-white/5 rounded-xl">
+                                    <div class="text-3xl font-bold font-space gradient-text">200+</div>
+                                    <div class="text-xs text-gray-500 mt-2">Hiring Companies</div>
+                                </div>
+                                <div class="text-center p-4 bg-white/5 rounded-xl">
+                                    <div class="text-3xl font-bold font-space gradient-text">50+</div>
+                                    <div class="text-xs text-gray-500 mt-2">Expert Trainers</div>
+                                </div>
+                                <div class="text-center p-4 bg-white/5 rounded-xl">
+                                    <div class="text-3xl font-bold font-space gradient-text">8+</div>
+                                    <div class="text-xs text-gray-500 mt-2">Avg. LPA Package</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating badge -->
+                        <div class="absolute -top-4 -right-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl px-4 py-3 shadow-xl float-anim">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="award" class="w-5 h-5 text-white"></i>
+                                <span class="text-sm font-bold text-white">Top Rated</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COURSES SECTION ========== -->
+    <section id="courses" class="section-dark py-24 md:py-32 relative">
+        <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16 reveal">
+                <div class="inline-flex items-center gap-2 mb-6">
+                    <div class="w-8 h-px bg-purple-500"></div>
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-purple-400">Our Programs</span>
+                    <div class="w-8 h-px bg-purple-500"></div>
+                </div>
+                <h2 class="font-space font-bold text-4xl md:text-6xl mb-4">
+                    Industry-Ready <span class="gradient-text">Courses</span>
+                </h2>
+                <p class="max-w-2xl mx-auto text-gray-400 text-lg">
+                    Curated programs designed with top tech companies. Each course includes live projects, mentorship, and placement support.
+                </p>
+            </div>
+            
+            <!-- Course Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                
+                <!-- Course 1: AIML -->
+                <div class="course-card rounded-2xl p-6 reveal group cursor-pointer" onclick="openCourseModal('aiml')">
+                    <div class="course-icon-bg w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="brain" class="w-7 h-7 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-2 group-hover:text-purple-300 transition-colors">AI & Machine Learning</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-4">Master neural networks, NLP, computer vision, and deep learning with TensorFlow & PyTorch.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Python</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">TensorFlow</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">PyTorch</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                        <div>
+                            <span class="text-xs text-gray-600">Duration</span>
+                            <p class="text-sm font-semibold">6 Months</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 2: Digital Marketing -->
+                <div class="course-card rounded-2xl p-6 reveal group cursor-pointer" style="transition-delay: 100ms;" onclick="openCourseModal('dm')">
+                    <div class="course-icon-bg w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="megaphone" class="w-7 h-7 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-2 group-hover:text-purple-300 transition-colors">Digital Marketing</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-4">SEO, SEM, social media marketing, Google Ads, analytics, and content strategy mastery.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">SEO</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Google Ads</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Analytics</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                        <div>
+                            <span class="text-xs text-gray-600">Duration</span>
+                            <p class="text-sm font-semibold">4 Months</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 3: Data Science -->
+                <div class="course-card rounded-2xl p-6 reveal group cursor-pointer" style="transition-delay: 200ms;" onclick="openCourseModal('ds')">
+                    <div class="course-icon-bg w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="bar-chart-3" class="w-7 h-7 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-2 group-hover:text-purple-300 transition-colors">Data Science</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-4">Statistical analysis, data visualization, predictive modeling, and big data technologies.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Python</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">SQL</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Tableau</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                        <div>
+                            <span class="text-xs text-gray-600">Duration</span>
+                            <p class="text-sm font-semibold">6 Months</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 4: MERN Full Stack -->
+                <div class="course-card rounded-2xl p-6 reveal group cursor-pointer" style="transition-delay: 300ms;" onclick="openCourseModal('mern')">
+                    <div class="course-icon-bg w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="code-2" class="w-7 h-7 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-2 group-hover:text-purple-300 transition-colors">MERN Full Stack</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-4">MongoDB, Express.js, React, Node.js — build complete web applications from scratch.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">React</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Node.js</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">MongoDB</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                        <div>
+                            <span class="text-xs text-gray-600">Duration</span>
+                            <p class="text-sm font-semibold">6 Months</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 5: Java Full Stack -->
+                <div class="course-card rounded-2xl p-6 reveal group cursor-pointer" onclick="openCourseModal('java')">
+                    <div class="course-icon-bg w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="coffee" class="w-7 h-7 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-2 group-hover:text-purple-300 transition-colors">Java Full Stack</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-4">Core Java, Spring Boot, Hibernate, React, MySQL — enterprise-grade application development.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Java</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Spring Boot</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">React</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                        <div>
+                            <span class="text-xs text-gray-600">Duration</span>
+                            <p class="text-sm font-semibold">7 Months</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 6: Python Full Stack -->
+                <div class="course-card rounded-2xl p-6 reveal group cursor-pointer" style="transition-delay: 100ms;" onclick="openCourseModal('python')">
+                    <div class="course-icon-bg w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="terminal" class="w-7 h-7 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-2 group-hover:text-purple-300 transition-colors">Python Full Stack</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-4">Django, Flask, REST APIs, PostgreSQL, React — versatile full stack with Python ecosystem.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Django</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Flask</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">PostgreSQL</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                        <div>
+                            <span class="text-xs text-gray-600">Duration</span>
+                            <p class="text-sm font-semibold">6 Months</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 7: Cloud Computing -->
+                <div class="course-card rounded-2xl p-6 reveal group cursor-pointer" style="transition-delay: 200ms;" onclick="openCourseModal('cloud')">
+                    <div class="course-icon-bg w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="cloud" class="w-7 h-7 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-2 group-hover:text-purple-300 transition-colors">Cloud Computing</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-4">AWS, Azure, GCP, DevOps, Docker, Kubernetes — master the cloud infrastructure landscape.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">AWS</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">Azure</span>
+                        <span class="text-[10px] uppercase tracking-wider bg-purple-500/10 text-purple-300 px-2 py-1 rounded-full">DevOps</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                        <div>
+                            <span class="text-xs text-gray-600">Duration</span>
+                            <p class="text-sm font-semibold">5 Months</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Card -->
+                <div class="reveal rounded-2xl p-6 bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-purple-500/30 flex flex-col items-center justify-center text-center" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center mb-4">
+                        <i data-lucide="plus" class="w-7 h-7 text-purple-300"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-2">Custom Program</h3>
+                    <p class="text-sm text-gray-500 mb-5">Need a tailored learning path? We'll design one for you.</p>
+                    <a href="#contact" class="text-sm font-semibold text-purple-300 hover:text-white transition-colors flex items-center gap-1">
+                        Talk to Us <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COURSE DETAIL MODAL ========== -->
+    <div id="courseModal" class="fixed inset-0 z-[70] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeCourseModal()"></div>
+        <div class="relative bg-[#1a1145] border border-purple-500/20 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-8 md:p-10">
+            <button onclick="closeCourseModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- ========== DOWNLOADS SECTION ========== -->
+    <section class="section-dark py-24 md:py-32 relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <div class="inline-flex items-center gap-2 mb-6">
+                    <div class="w-8 h-px bg-purple-500"></div>
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-purple-400">Downloads</span>
+                    <div class="w-8 h-px bg-purple-500"></div>
+                </div>
+                <h2 class="font-space font-bold text-4xl md:text-5xl mb-4">
+                    Download Our <span class="gradient-text">Curriculum & Poster</span>
+                </h2>
+                <p class="max-w-2xl mx-auto text-gray-400 text-lg">
+                    Get our latest program brochure and promotional poster in one click.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-gradient-to-br from-purple-900/20 to-indigo-900/10 border border-purple-500/15 rounded-2xl p-8 reveal">
+                    <div class="w-14 h-14 rounded-xl bg-purple-500/15 flex items-center justify-center mb-5">
+                        <i data-lucide="file-text" class="w-7 h-7 text-purple-300"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-xl mb-3">Course Curriculum</h3>
+                    <p class="text-gray-400 mb-6">Download the complete curriculum overview for our training programs.</p>
+                    <a href="downloads/curriculum.svg" download class="inline-flex items-center gap-2 cta-gradient px-6 py-3 rounded-full text-sm font-semibold text-white">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        Download Curriculum
+                    </a>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-900/20 to-indigo-900/10 border border-purple-500/15 rounded-2xl p-8 reveal" style="transition-delay: 150ms;">
+                    <div class="w-14 h-14 rounded-xl bg-purple-500/15 flex items-center justify-center mb-5">
+                        <i data-lucide="image" class="w-7 h-7 text-purple-300"></i>
+                    </div>
+                    <h3 class="font-space font-semibold text-xl mb-3">Program Poster</h3>
+                    <p class="text-gray-400 mb-6">Download the promotional poster for sharing with students and partners.</p>
+                    <a href="downloads/poster.svg" download class="inline-flex items-center gap-2 cta-gradient px-6 py-3 rounded-full text-sm font-semibold text-white">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        Download Poster
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PROCESS SECTION ========== -->
+    <section id="process" class="section-dark py-24 md:py-32 relative overflow-hidden">
+        <div class="absolute top-1/2 left-0 w-64 h-64 bg-indigo-600/10 rounded-full blur-[100px]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-20 reveal">
+                <div class="inline-flex items-center gap-2 mb-6">
+                    <div class="w-8 h-px bg-purple-500"></div>
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-purple-400">How It Works</span>
+                    <div class="w-8 h-px bg-purple-500"></div>
+                </div>
+                <h2 class="font-space font-bold text-4xl md:text-6xl mb-4">
+                    Your Journey <span class="gradient-text">With Us</span>
+                </h2>
+                <p class="max-w-xl mx-auto text-gray-400 text-lg">From enrollment to placement — a structured path designed for your success.</p>
+            </div>
+            
+            <!-- Process Steps -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="reveal text-center relative">
+                    <div class="w-16 h-16 rounded-2xl cta-gradient flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-500/20">
+                        <span class="text-2xl font-bold font-space">01</span>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-3">Counseling</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Free career counseling session to understand your goals and recommend the right program.</p>
+                    <div class="hidden lg:block absolute top-8 left-[60%] w-[80%] h-px bg-gradient-to-r from-purple-500/50 to-transparent"></div>
+                </div>
+                <div class="reveal text-center relative" style="transition-delay: 150ms;">
+                    <div class="w-16 h-16 rounded-2xl cta-gradient flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-500/20">
+                        <span class="text-2xl font-bold font-space">02</span>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-3">Learn & Build</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Immersive training with live lectures, hands-on labs, and real-world project building.</p>
+                    <div class="hidden lg:block absolute top-8 left-[60%] w-[80%] h-px bg-gradient-to-r from-purple-500/50 to-transparent"></div>
+                </div>
+                <div class="reveal text-center relative" style="transition-delay: 300ms;">
+                    <div class="w-16 h-16 rounded-2xl cta-gradient flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-500/20">
+                        <span class="text-2xl font-bold font-space">03</span>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-3">Internship</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Work on client projects in a simulated work environment to gain real industry experience.</p>
+                    <div class="hidden lg:block absolute top-8 left-[60%] w-[80%] h-px bg-gradient-to-r from-purple-500/50 to-transparent"></div>
+                </div>
+                <div class="reveal text-center" style="transition-delay: 450ms;">
+                    <div class="w-16 h-16 rounded-2xl cta-gradient flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-500/20">
+                        <span class="text-2xl font-bold font-space">04</span>
+                    </div>
+                    <h3 class="font-space font-semibold text-lg mb-3">Get Placed</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Resume building, mock interviews, and direct placements with our 150+ hiring partners.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WHY CHOOSE US ========== -->
+    <section class="section-dark py-24 md:py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Visual -->
+                <div class="reveal order-2 lg:order-1">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-purple-900/30 to-indigo-900/10 border border-purple-500/15 rounded-2xl p-8">
+                            <!-- Code block aesthetic -->
+                            <div class="flex items-center gap-2 mb-6">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                                <span class="text-xs text-gray-600 ml-3">digital_byte_career.py</span>
+                            </div>
+                            <div class="font-mono text-sm space-y-2">
+                                <p><span class="text-purple-400">class</span> <span class="text-green-400">DigitalByteStudent</span>:</p>
+                                <p class="pl-4"><span class="text-purple-400">def</span> <span class="text-blue-300">__init__</span>(<span class="text-orange-300">self</span>):</p>
+                                <p class="pl-8"><span class="text-orange-300">self</span>.skills = <span class="text-yellow-300">"Industry-Ready"</span></p>
+                                <p class="pl-8"><span class="text-orange-300">self</span>.projects = <span class="text-green-300">15</span></p>
+                                <p class="pl-8"><span class="text-orange-300">self</span>.confidence = <span class="text-green-300">100</span></p>
+                                <p class="pl-4">&nbsp;</p>
+                                <p class="pl-4"><span class="text-purple-400">def</span> <span class="text-blue-300">get_placed</span>(<span class="text-orange-300">self</span>):</p>
+                                <p class="pl-8"><span class="text-purple-400">return</span> <span class="text-yellow-300">"🚀 Hired!"</span></p>
+                                <p class="pl-4">&nbsp;</p>
+                                <p><span class="text-gray-600"># Your journey starts here</span></p>
+                                <p>student = <span class="text-green-400">DigitalByteStudent</span>()</p>
+                                <p>student.<span class="text-blue-300">get_placed</span>()</p>
+                                <p class="text-green-400 mt-2">>>> 🚀 Hired!</p>
+                            </div>
+                        </div>
+                        <!-- Floating elements -->
+                        <div class="absolute -bottom-6 -left-6 bg-[#1a1145] border border-purple-500/20 rounded-xl px-5 py-3 float-anim-delay">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-green-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Avg. Salary Hike</p>
+                                    <p class="text-lg font-bold text-green-400">+300%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="reveal order-1 lg:order-2" style="transition-delay: 200ms;">
+                    <div class="inline-flex items-center gap-2 mb-6">
+                        <div class="w-8 h-px bg-purple-500"></div>
+                        <span class="text-xs font-semibold uppercase tracking-[0.2em] text-purple-400">Why Digital Byte</span>
+                    </div>
+                    <h2 class="font-space font-bold text-4xl md:text-5xl leading-tight mb-8">
+                        Not Just a Course.<br><span class="gradient-text">A Career Launchpad.</span>
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg icon-gradient flex items-center justify-center flex-shrink-0 mt-1">
+                                <i data-lucide="users" class="w-5 h-5 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Small Batch Sizes</h4>
+                                <p class="text-sm text-gray-500">Max 25 students per batch ensures personalized attention for every learner.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg icon-gradient flex items-center justify-center flex-shrink-0 mt-1">
+                                <i data-lucide="laptop" class="w-5 h-5 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Hands-On Labs</h4>
+                                <p class="text-sm text-gray-500">80% practical, 20% theory. Every concept is reinforced through coding exercises.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg icon-gradient flex items-center justify-center flex-shrink-0 mt-1">
+                                <i data-lucide="briefcase" class="w-5 h-5 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Real Client Projects</h4>
+                                <p class="text-sm text-gray-500">Work on actual client briefs during internship — not just toy projects.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-lg icon-gradient flex items-center justify-center flex-shrink-0 mt-1">
+                                <i data-lucide="infinity" class="w-5 h-5 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Lifetime Access</h4>
+                                <p class="text-sm text-gray-500">Once a Digital Byte student, always one. Lifetime course access & alumni network.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PLACEMENTS SECTION ========== -->
+    <section id="placements" class="section-dark py-24 md:py-32 relative overflow-hidden">
+        <div class="absolute top-0 right-1/4 w-80 h-80 bg-purple-600/10 rounded-full blur-[120px]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16 reveal">
+                <div class="inline-flex items-center gap-2 mb-6">
+                    <div class="w-8 h-px bg-purple-500"></div>
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-purple-400">Our Placements</span>
+                    <div class="w-8 h-px bg-purple-500"></div>
+                </div>
+                <h2 class="font-space font-bold text-4xl md:text-6xl mb-4">
+                    Where Our Students <span class="gradient-text">Work</span>
+                </h2>
+                <p class="max-w-xl mx-auto text-gray-400 text-lg">Our alumni are building the future at leading technology companies worldwide.</p>
+            </div>
+            
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 reveal">
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl md:text-5xl font-bold font-space gradient-text mb-2">95%</div>
+                    <div class="text-sm text-gray-500">Placement Rate</div>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl md:text-5xl font-bold font-space gradient-text mb-2">8-42</div>
+                    <div class="text-sm text-gray-500">LPA Salary Range</div>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl md:text-5xl font-bold font-space gradient-text mb-2">150+</div>
+                    <div class="text-sm text-gray-500">Hiring Partners</div>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl md:text-5xl font-bold font-space gradient-text mb-2">3x</div>
+                    <div class="text-sm text-gray-500">Avg. Salary Hike</div>
+                </div>
+            </div>
+            
+            <!-- Company Logos -->
+            <div class="reveal">
+                <p class="text-center text-xs uppercase tracking-[0.2em] text-gray-600 mb-8">Our Hiring Partners</p>
+                <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">Google</div>
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">Amazon</div>
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">Microsoft</div>
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">TCS</div>
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">Infosys</div>
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">Wipro</div>
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">Accenture</div>
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">Deloitte</div>
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">Flipkart</div>
+                    <div class="company-logo text-2xl font-bold font-space text-gray-400">Razorpay</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="section-dark py-24 md:py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Header -->
+            <div class="text-center mb-16 reveal">
+                <div class="inline-flex items-center gap-2 mb-6">
+                    <div class="w-8 h-px bg-purple-500"></div>
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-purple-400">Student Stories</span>
+                    <div class="w-8 h-px bg-purple-500"></div>
+                </div>
+                <h2 class="font-space font-bold text-4xl md:text-6xl mb-4">
+                    Voices of <span class="gradient-text">Success</span>
+                </h2>
+            </div>
+            
+            <!-- Testimonials Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="testimonial-card rounded-2xl p-8 reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">"The MERN Full Stack course transformed my career completely. From zero coding knowledge to getting placed at a top startup with 12 LPA — all in 6 months. The mentors are incredible."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-sm font-bold">RK</div>
+                        <div>
+                            <p class="text-sm font-semibold">Rahul Kumar</p>
+                            <p class="text-xs text-gray-500">MERN Full Stack · Placed at Razorpay</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card rounded-2xl p-8 reveal" style="transition-delay: 150ms;">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">"Digital Byte's AI/ML program gave me the depth I was looking for. The projects on NLP and computer vision helped me crack interviews at Amazon. Best investment of my life!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center text-sm font-bold">PS</div>
+                        <div>
+                            <p class="text-sm font-semibold">Priya Sharma</p>
+                            <p class="text-xs text-gray-500">AI & ML · Placed at Amazon</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card rounded-2xl p-8 reveal" style="transition-delay: 300ms;">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">"I switched from a non-tech background to Data Science. The structured curriculum and patient mentors made it possible. Got placed at Deloitte with a 280% salary hike!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-sm font-bold">AJ</div>
+                        <div>
+                            <p class="text-sm font-semibold">Amit Joshi</p>
+                            <p class="text-xs text-gray-500">Data Science · Placed at Deloitte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="relative py-24 md:py-32 overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/50 via-purple-900/50 to-indigo-900/50"></div>
+        <div class="absolute inset-0">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[150px]"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center reveal">
+            <div class="inline-flex items-center gap-2 bg-white/5 border border-purple-500/20 rounded-full px-5 py-2 mb-8">
+                <i data-lucide="rocket" class="w-4 h-4 text-purple-400"></i>
+                <span class="text-xs font-medium text-purple-200 tracking-wide uppercase">Limited Seats Available</span>
+            </div>
+            <h2 class="font-space font-bold text-4xl md:text-6xl leading-tight mb-6">
+                Ready to <span class="gradient-text">Transform</span><br>Your Career?
+            </h2>
+            <p class="text-lg text-gray-400 mb-10 max-w-2xl mx-auto">
+                Join 5000+ students who chose the right path. Next batch starting soon — reserve your seat today.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#contact" class="cta-gradient text-sm font-bold uppercase tracking-widest px-12 py-4 rounded-full text-white flex items-center gap-2 shadow-xl shadow-purple-500/20">
+                    Enroll Now — It's Free to Start
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <p class="text-xs text-gray-600 mt-6">No upfront fee · Pay after placement option available</p>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT / ENROLLMENT SECTION ========== -->
+    <section id="contact" class="section-dark py-24 md:py-32 relative">
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-indigo-600/10 rounded-full blur-[100px]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Left Info -->
+                <div class="reveal">
+                    <div class="inline-flex items-center gap-2 mb-6">
+                        <div class="w-8 h-px bg-purple-500"></div>
+                        <span class="text-xs font-semibold uppercase tracking-[0.2em] text-purple-400">Get In Touch</span>
+                    </div>
+                    <h2 class="font-space font-bold text-4xl md:text-5xl leading-tight mb-6">
+                        Start Your <span class="gradient-text">Journey</span> Today
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-10">
+                        Fill in the form and our career counselor will get back to you within 2 hours with a personalized learning recommendation.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl icon-gradient flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Call Us</p>
+                                <p class="font-semibold">+91 98765 43210</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl icon-gradient flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Email</p>
+                                <p class="font-semibold">admissions@digitalbytesolutions.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl icon-gradient flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Visit Us</p>
+                                <p class="font-semibold">Tech Park, Bangalore - 560001</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social -->
+                    <div class="flex items-center gap-4 mt-10">
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-500/50 transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-500/50 transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-500/50 transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-500/50 transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Right Form -->
+                <div class="reveal" style="transition-delay: 200ms;">
+                    <form id="enrollForm" class="bg-gradient-to-br from-purple-900/20 to-indigo-900/10 border border-purple-500/15 rounded-2xl p-8 md:p-10" onsubmit="handleEnroll(event)">
+                        <h3 class="font-space font-semibold text-xl mb-6">Book a Free Career Counseling</h3>
+                        
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-xs text-gray-500 uppercase tracking-wider mb-2">Full Name</label>
+                                <input type="text" required placeholder="Enter your full name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 uppercase tracking-wider mb-2">Email Address</label>
+                                <input type="email" required placeholder="you@example.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 uppercase tracking-wider mb-2">Phone Number</label>
+                                <input type="tel" required placeholder="+91 98765 43210" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 uppercase tracking-wider mb-2">Interested Course</label>
+                                <select required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-gray-400 focus:outline-none focus:border-purple-500/50 transition-colors appearance-none" style="background-image: url('data:image/svg+xml;utf8,<svg fill=\"%236b7280\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px;">
+                                    <option value="" class="bg-[#1a1145]">Select a course</option>
+                                    <option value="aiml" class="bg-[#1a1145]">AI & Machine Learning</option>
+                                    <option value="dm" class="bg-[#1a1145]">Digital Marketing</option>
+                                    <option value="ds" class="bg-[#1a1145]">Data Science</option>
+                                    <option value="mern" class="bg-[#1a1145]">MERN Full Stack Development</option>
+                                    <option value="java" class="bg-[#1a1145]">Java Full Stack Development</option>
+                                    <option value="python" class="bg-[#1a1145]">Python Full Stack Development</option>
+                                    <option value="cloud" class="bg-[#1a1145]">Cloud Computing</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 uppercase tracking-wider mb-2">Message (Optional)</label>
+                                <textarea rows="3" placeholder="Tell us about your background..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors resize-none"></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" id="submitBtn" class="w-full cta-gradient text-sm font-bold uppercase tracking-widest px-6 py-4 rounded-xl text-white mt-8 flex items-center justify-center gap-2">
+                            <span>Submit & Get Callback</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                        
+                        <!-- Success Message (hidden by default) -->
+                        <div id="successMsg" class="hidden mt-4 bg-green-500/10 border border-green-500/30 rounded-xl p-4 text-center">
+                            <i data-lucide="check-circle-2" class="w-8 h-8 text-green-400 mx-auto mb-2"></i>
+                            <p class="text-sm text-green-300 font-semibold">Thank you! We'll call you within 2 hours.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="border-t border-purple-500/10 bg-[#080520]">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <img src="https://z-cdn-media.chatglm.cn/files/c14e913d-4156-49e1-9769-e2729bac3c14.jpeg?auth_key=1882282236-237ed18415914a6aa6425d105fef6f5a-0-5125247e291d26a97c14a574c0525e17" alt="Digital Byte Solutions" class="h-12 w-auto mb-4">
+                    <p class="text-sm text-gray-500 leading-relaxed mb-6">Transforming careers through industry-aligned technology education. Your digital future starts here.</p>
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 hover:text-white transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 hover:text-white transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 hover:text-white transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Courses -->
+                <div>
+                    <h4 class="font-space font-semibold text-sm uppercase tracking-wider mb-6">Courses</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#courses" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">AI & Machine Learning</a></li>
+                        <li><a href="#courses" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Digital Marketing</a></li>
+                        <li><a href="#courses" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Data Science</a></li>
+                        <li><a href="#courses" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">MERN Full Stack</a></li>
+                        <li><a href="#courses" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Java Full Stack</a></li>
+                        <li><a href="#courses" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Python Full Stack</a></li>
+                        <li><a href="#courses" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Cloud Computing</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Company -->
+                <div>
+                    <h4 class="font-space font-semibold text-sm uppercase tracking-wider mb-6">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">About Us</a></li>
+                        <li><a href="#placements" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Placements</a></li>
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Careers</a></li>
+                        <li><a href="#contact" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-purple-300 transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-space font-semibold text-sm uppercase tracking-wider mb-6">Stay Updated</h4>
+                    <p class="text-sm text-gray-500 mb-4">Get tech tips, course updates, and placement news in your inbox.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Your email" class="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50">
+                        <button class="cta-gradient px-4 py-2.5 rounded-lg text-white">
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom bar -->
+            <div class="border-t border-purple-500/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-gray-600">© 2025 Digital Byte Solutions. All rights reserved.</p>
+                <p class="text-xs text-gray-700">Designed with <span class="text-purple-500">♥</span> for the future of tech education</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== FLOATING WHATSAPP BUTTON ========== -->
+    <a href="https://wa.me/919876543210" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 hover:scale-110 transition-transform group">
+        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="absolute right-full mr-3 bg-white text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">Chat with us!</span>
+    </a>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // ===== Mobile Menu =====
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('menuOverlay');
+            menu.classList.toggle('open');
+            overlay.classList.toggle('hidden');
+            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+        }
+
+        // ===== Hero Canvas - Connected Nodes Animation =====
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+        let nodes = [];
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+
+        function createNodes() {
+            nodes = [];
+            const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
+            for (let i = 0; i < count; i++) {
+                nodes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    radius: Math.random() * 2 + 1,
+                    opacity: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
+
+        function drawNodes() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw connections
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        const opacity = (1 - dist / 150) * 0.15;
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw nodes
+            nodes.forEach(node => {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(139, 92, 246, ${node.opacity})`;
+                ctx.fill();
+
+                // Update position
+                node.x += node.vx;
+                node.y += node.vy;
+
+                // Bounce off edges
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+                // Mouse interaction
+                if (mouse.x !== null) {
+                    const dx = node.x - mouse.x;
+                    const dy = node.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 200) {
+                        node.x += dx * 0.01;
+                        node.y += dy * 0.01;
+                    }
+                }
+            });
+
+            requestAnimationFrame(drawNodes);
+        }
+
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        resizeCanvas();
+        createNodes();
+        drawNodes();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            createNodes();
+        });
+
+        // ===== Scroll Reveal =====
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== Counter Animation =====
+        function animateCounters() {
+            const counters = document.querySelectorAll('[data-count]');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const start = performance.now();
+
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    counter.textContent = Math.floor(eased * target).toLocaleString();
+                    if (progress < 1) requestAnimationFrame(updateCounter);
+                    else counter.textContent = target.toLocaleString() + (target === 95 ? '%' : '+');
+                }
+                requestAnimationFrame(updateCounter);
+            });
+        }
+
+        // Trigger counter when hero is visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                animateCounters();
+                heroObserver.disconnect();
+            }
+        }, { threshold: 0.5 });
+        heroObserver.observe(document.getElementById('hero'));
+
+        // ===== Navbar Scroll Effect =====
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 100) {
+                navbar.style.borderBottomColor = 'rgba(139, 92, 246, 0.15)';
+                navbar.style.background = 'rgba(15, 10, 46, 0.95)';
+            } else {
+                navbar.style.borderBottomColor = 'rgba(139, 92, 246, 0.1)';
+                navbar.style.background = 'rgba(15, 10, 46, 0.85)';
+            }
+            lastScroll = currentScroll;
+        });
+
+        // ===== Course Modal =====
+        const courseData = {
+            aiml: {
+                title: 'AI & Machine Learning',
+                icon: 'brain',
+                duration: '6 Months',
+                mode: 'Hybrid (Online + Offline)',
+                projects: '8+ Live Projects',
+                syllabus: ['Python Fundamentals & Advanced', 'Machine Learning Algorithms', 'Deep Learning with TensorFlow', 'Neural Networks & CNNs', 'Natural Language Processing', 'Computer Vision', 'Reinforcement Learning', 'MLOps & Model Deployment', 'Capstone Project with Industry Data'],
+                tools: ['Python', 'TensorFlow', 'PyTorch', 'Scikit-Learn', 'Keras', 'OpenCV', 'NLTK', 'AWS SageMaker'],
+                outcome: 'AI Engineer / ML Engineer / Data Scientist'
+            },
+            dm: {
+                title: 'Digital Marketing',
+                icon: 'megaphone',
+                duration: '4 Months',
+                mode: 'Hybrid (Online + Offline)',
+                projects: '10+ Campaign Projects',
+                syllabus: ['SEO On-Page & Off-Page', 'Google Ads (Search, Display, YouTube)', 'Social Media Marketing', 'Content Marketing Strategy', 'Email Marketing & Automation', 'Google Analytics & Tag Manager', 'Facebook & Instagram Ads', 'Influencer Marketing', 'Conversion Rate Optimization'],
+                tools: ['Google Ads', 'Meta Ads', 'SEMrush', 'Ahrefs', 'Mailchimp', 'Canva', 'WordPress', 'Google Analytics'],
+                outcome: 'Digital Marketing Manager / SEO Specialist / Growth Hacker'
+            },
+            ds: {
+                title: 'Data Science',
+                icon: 'bar-chart-3',
+                duration: '6 Months',
+                mode: 'Hybrid (Online + Offline)',
+                projects: '10+ Analytics Projects',
+                syllabus: ['Statistics & Probability', 'Python for Data Science', 'Data Wrangling & Cleaning', 'Exploratory Data Analysis', 'SQL & Database Management', 'Data Visualization (Tableau, Power BI)', 'Predictive Modeling', 'Big Data with Spark', 'Capstone: End-to-End Data Pipeline'],
+                tools: ['Python', 'SQL', 'Tableau', 'Power BI', 'Pandas', 'NumPy', 'Apache Spark', 'Excel'],
+                outcome: 'Data Scientist / Data Analyst / Business Analyst'
+            },
+            mern: {
+                title: 'MERN Full Stack Development',
+                icon: 'code-2',
+                duration: '6 Months',
+                mode: 'Hybrid (Online + Offline)',
+                projects: '12+ Web Applications',
+                syllabus: ['HTML5, CSS3, JavaScript ES6+', 'React.js (Hooks, Context, Redux)', 'Node.js & Express.js', 'MongoDB & Mongoose', 'REST API Development', 'Authentication & Authorization (JWT)', 'State Management', 'Deployment & CI/CD', 'Capstone: Full SaaS Application'],
+                tools: ['React', 'Node.js', 'Express', 'MongoDB', 'Redux', 'Tailwind CSS', 'Git', 'Vercel/AWS'],
+                outcome: 'Full Stack Developer / MERN Stack Developer / Frontend Engineer'
+            },
+            java: {
+                title: 'Java Full Stack Development',
+                icon: 'coffee',
+                duration: '7 Months',
+                mode: 'Hybrid (Online + Offline)',
+                projects: '10+ Enterprise Projects',
+                syllabus: ['Core Java & Advanced Java', 'OOP, Collections, Generics', 'Spring Boot & Spring MVC', 'Hibernate & JPA', 'RESTful API Development', 'React.js for Frontend', 'MySQL & PostgreSQL', 'Microservices Architecture', 'Capstone: Enterprise Application'],
+                tools: ['Java', 'Spring Boot', 'Hibernate', 'React', 'MySQL', 'Maven', 'Docker', 'Jenkins'],
+                outcome: 'Java Full Stack Developer / Backend Engineer / Software Engineer'
+            },
+            python: {
+                title: 'Python Full Stack Development',
+                icon: 'terminal',
+                duration: '6 Months',
+                mode: 'Hybrid (Online + Offline)',
+                projects: '10+ Web Projects',
+                syllabus: ['Python Fundamentals & Advanced', 'Django Framework Deep Dive', 'Flask Microframework', 'REST API with Django REST Framework', 'PostgreSQL & Database Design', 'React.js Frontend', 'Authentication & Security', 'Cloud Deployment', 'Capstone: Production Web Application'],
+                tools: ['Python', 'Django', 'Flask', 'DRF', 'PostgreSQL', 'React', 'Docker', 'Redis'],
+                outcome: 'Python Developer / Full Stack Developer / Backend Engineer'
+            },
+            cloud: {
+                title: 'Cloud Computing',
+                icon: 'cloud',
+                duration: '5 Months',
+                mode: 'Hybrid (Online + Offline)',
+                projects: '8+ Cloud Infrastructure Projects',
+                syllabus: ['Cloud Fundamentals (IaaS, PaaS, SaaS)', 'AWS Core Services (EC2, S3, RDS, VPC)', 'Azure Fundamentals & Services', 'Google Cloud Platform Basics', 'DevOps & CI/CD Pipelines', 'Docker & Containerization', 'Kubernetes Orchestration', 'Infrastructure as Code (Terraform)', 'Capstone: Multi-Cloud Deployment'],
+                tools: ['AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'Jenkins', 'Ansible'],
+                outcome: 'Cloud Engineer / DevOps Engineer / Cloud Architect'
+            }
+        };
+
+        function openCourseModal(courseId) {
+            const course = courseData[courseId];
+            if (!course) return;
+
+            const modal = document.getElementById('courseModal');
+            const content = document.getElementById('modalContent');
+
+            content.innerHTML = `
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="course-icon-bg w-14 h-14 rounded-xl flex items-center justify-center">
+                        <i data-lucide="${course.icon}" class="w-7 h-7 text-purple-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-space font-bold text-2xl">${course.title}</h3>
+                        <p class="text-sm text-gray-500">Complete Career Program</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-3 mb-8">
+                    <div class="bg-white/5 rounded-xl p-3 text-center">
+                        <p class="text-xs text-gray-500 mb-1">Duration</p>
+                        <p class="text-sm font-semibold">${course.duration}</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-3 text-center">
+                        <p class="text-xs text-gray-500 mb-1">Mode</p>
+                        <p class="text-sm font-semibold">Hybrid</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-3 text-center">
+                        <p class="text-xs text-gray-500 mb-1">Projects</p>
+                        <p class="text-sm font-semibold">${course.projects}</p>
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <h4 class="font-semibold text-sm uppercase tracking-wider text-purple-400 mb-4">Curriculum Highlights</h4>
+                    <div class="space-y-2.5">
+                        ${course.syllabus.map((item, i) => `
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-[10px] font-bold text-purple-400">${String(i + 1).padStart(2, '0')}</span>
+                                </div>
+                                <span class="text-sm text-gray-300">${item}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <h4 class="font-semibold text-sm uppercase tracking-wider text-purple-400 mb-4">Tools & Technologies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${course.tools.map(tool => `
+                            <span class="text-xs bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-gray-300">${tool}</span>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 border border-purple-500/20 rounded-xl p-4 mb-6">
+                    <div class="flex items-center gap-2 mb-1">
+                        <i data-lucide="briefcase" class="w-4 h-4 text-purple-400"></i>
+                        <span class="text-xs uppercase tracking-wider text-purple-400 font-semibold">Career Outcome</span>
+                    </div>
+                    <p class="text-sm text-white font-medium">${course.outcome}</p>
+                </div>
+                
+                <a href="#contact" onclick="closeCourseModal()" class="block w-full cta-gradient text-center text-sm font-bold uppercase tracking-widest px-6 py-4 rounded-xl text-white">
+                    Enroll in This Course
+                </a>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeCourseModal() {
+            const modal = document.getElementById('courseModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeCourseModal();
+        });
+
+        // ===== Form Submission =====
+        function handleEnroll(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const msg = document.getElementById('successMsg');
+            
+            btn.innerHTML = '<span>Submitting...</span>';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span>Submitted ✓</span>';
+                msg.classList.remove('hidden');
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<span>Submit & Get Callback</span><i data-lucide="send" class="w-4 h-4"></i>';
+                    btn.disabled = false;
+                    lucide.createIcons();
+                    e.target.reset();
+                }, 3000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

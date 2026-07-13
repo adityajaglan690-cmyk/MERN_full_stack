@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myntra clone</title>
+</head>
+<body>
+    <style>
+        body {
+            background-color: palevioletred;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: gray;
+            padding: 10px 20px;
+        }
+        #search input {
+            padding: 5px;
+            width: 300px;
+        }
+        #nav {
+            display: flex;
+            gap: 20px;
+        }
+        #nav li {
+            list-style: none;
+            cursor: pointer;
+        }
+        .hero {
+            background-color: #f3f3f3;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .product {
+            padding: 20px;
+        }
+        .product-list {
+            display: flex;
+            justify-content: space-around;
+        }
+        .product-item {
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color:black;
+            color: white;
+        }
+
+        </style>
+    <header id="header">
+        <div id="logo">
+            <img src="/css/download.png" alt="Myntra Logo" width="100px">
+        </div>
+        <nav id="navbar">
+            <ul id="nav">
+                <li>Men</li>
+                <li>Women</li>
+                <li>Kids</li>
+                <li>Home</li>
+                <li>Beauty</li>
+                <li>Studio</li>
+            </ul>
+        </nav>
+        <div id="search">
+            <input type="text" placeholder="Search for products, brands and more">
+            <button>Search</button>
+        </div>
+    </header>
+    </header><br>
+    <section class="hero">
+        <h1>Welcome to Myntra</h1>
+        <p>Discover the latest fashion trends and shop your favorite brands.</p><br><br><hr>
+        <section class="product">
+                <h2>Featured Products</h2>
+                <div class="product-list">
+                    <div class="product-item">
+                        <img src="/css/shoes.webp" alt="Product 1 "width="150px">
+                        <h3>Product 1</h3>
+                        <p>Rs. 999</p>
+                    </div>
+                    <div class="product-item">
+                        <img src="/css/images.jpg" alt="Product 2" width="150px">
+                        <h3>Product 2</h3>
+                        <p>Rs. 1999</p>
+                    </div>
+                    <div class="product-item">
+                        <img src="/css/images (1).jpg" alt="Product 3" width="150px">
+                        <h3>Product 3</h3>
+                        <p>Rs. 1499</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <footer class="footer">
+            <p> 2024 Myntra. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
