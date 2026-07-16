@@ -14,6 +14,10 @@ function clock(){
 }
 div.appendChild(h1);
 document.body.appendChild(div);
+object.assign(div.style,{
+    color:"red",
+    backgroundcolor:"blue"
+});
 div.appendChild(h2);
 document.body.appendChild(div);
 clock();
